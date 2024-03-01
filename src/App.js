@@ -11,6 +11,10 @@ import * as Webcam from "react-webcam";
 
 import './App.css';
 
+//import the drawing function
+import {drawHand} from "./utilities.js";
+
+
 function App() {
   // include references to pass
   const webcamRef = useRef(null);
@@ -24,7 +28,7 @@ function App() {
     // detect hands loop
     setInterval(() => {
       detect(net);
-    }, 100);
+    }, 1);
 
   };
   // detect hands
@@ -52,18 +56,23 @@ function App() {
       console.log(hand);
 
       // draw mesh
-      //const ctx = canvasRef.current.getContext("2d");
-      //drawMesh(hand, ctx);
+      const ctx = canvasRef.current.getContext("2d");
+      
+      drawHand(hand, ctx);
     }
 
-  }
+  };
+  const videoConstraints = {
+    
+    mirrored: true
+  };
   runHandpose();
 
   return (
     <div className="App">
       <header className="App-header">
         {/* webcam */}
-        <Webcam ref={webcamRef} style={{
+        <Webcam ref={webcamRef} /* mirror camera */ mirrored="true" style={{
           position: "absolute",
           marginLeft: "auto",
           marginRight: "auto",
@@ -73,6 +82,7 @@ function App() {
           zindex: 10,
           width: 700,
           height: 500
+          
         }} />
 
         {/* canvas */}
@@ -85,7 +95,10 @@ function App() {
           textAlign: "center",
           zindex: 10,
           width: 700,
-          height: 500
+          height: 500,
+          /* flip canvas */
+          transform: 'scale(-1, 1)',
+          filter: 'FlipH'
         }} />
       </header>
     </div>
