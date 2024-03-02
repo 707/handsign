@@ -18,6 +18,7 @@ import { rockOnGesture } from './RockOn.js';
 //import fingerpose assets
 import * as fp from "fingerpose";
 import Handsigns from "./handsigns";
+import { Signimage, Signpass } from "./handimage"
 import victory from "./victory.png";
 import thumbs_up from "./thumbs_up.png";
 import rock_on from "./rock_on.png";
@@ -28,8 +29,11 @@ function App() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
 
-  const [emoji, setEmoji] = useState(null);
-  const images = {thumbs_up: thumbs_up, victory: victory, rock_on: rock_on};
+  
+  // const images = {thumbs_up: thumbs_up, victory: victory, rock_on: rock_on};
+  // set state for sign
+  const [sign, setSign] = useState(null);
+  
 
   // load handpose model
   const runHandpose = async () => {
@@ -39,7 +43,7 @@ function App() {
     // detect hands loop
     setInterval(() => {
       detect(net);
-    }, 10);
+    }, 150); //150 is agreeable for better average detection
 
   };
 
@@ -103,20 +107,25 @@ function App() {
           Handsigns.zSign
           
         ]);
+
         const gesture = await GE.estimate(hand[0].landmarks, 6.5);
         
         if (gesture.gestures !== undefined && gesture.gestures.length > 0) {
-            console.log(gesture.gestures);
+          
+          console.log(gesture.gestures); //print guesture array
 
-          const confidence = gesture.gestures.map(
-            (prediction => prediction.score)
-          );
+          const confidence = gesture.gestures.map(prediction => prediction.score)
+          console.log(confidence + " confidence");
           const maxConfidence = confidence.indexOf(
-            Math.max.apply(null, confidence)
+            Math.max.apply(Math, confidence)
           );
+          console.log(maxConfidence +  " max confidence");
+          console.log(gesture.gestures[maxConfidence].name + " name");
           //console.log(gesture.gestures[maxConfidence].name);
-          setEmoji(gesture.gestures[maxConfidence].name);
-          console.log(emoji);
+          setSign(gesture.gestures[maxConfidence].name);
+          console.log(sign + "sign")
+
+          
         };
       };
 
@@ -129,6 +138,7 @@ function App() {
 
   };
 
+  //useEffect(() => console.log(sign + "effect sign"), [sign])
   useEffect(()=>{runHandpose()},[]);
 
   return (
@@ -165,15 +175,21 @@ function App() {
         }} />
           
           {/* emoji */}
-          {emoji !== null ? (
+          {sign !== null ? (
             <img
-              src={images[emoji]}
+
+              alt="signImage"
+                  src={
+                    Signimage[sign] //?.src
+                      // ? Signimage[sign].src
+                      //: "/loveyou_emoji.svg"
+                  }
               style={{
                 position: "absolute",
                 marginLeft: "auto",
                 marginRight: "auto",
                 left: 400,
-                bottom: 500,
+                bottom: 400,
                 right: 0,
                 textAlign: "center",
                 height: 100,
