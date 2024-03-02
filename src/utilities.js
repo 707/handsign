@@ -11,25 +11,25 @@ const fingerJoints = {
 const style = {
   0: { color: "black", size: 0 },
   1: { color: "black", size: 0 },
-  2: { color: "black", size: 6 },
-  3: { color: "black", size: 6 },
-  4: { color: "black", size: 6 },
-  5: { color: "black", size: 6 },
-  6: { color: "black", size: 6 },
-  7: { color: "black", size: 6 },
-  8: { color: "black", size: 6 },
-  9: { color: "black", size: 6 },
-  10: { color: "black", size: 6 },
-  11: { color: "black", size: 6 },
-  12: { color: "black", size: 6 },
-  13: { color: "black", size: 6 },
-  14: { color: "black", size: 6 },
-  15: { color: "black", size: 6 },
-  16: { color: "black", size: 6 },
-  17: { color: "black", size: 6 },
-  18: { color: "black", size: 6 },
-  19: { color: "black", size: 6 },
-  20: { color: "black", size: 6 },
+  2: { color: "black", size: 3 },
+  3: { color: "black", size: 3 },
+  4: { color: "black", size: 3 },
+  5: { color: "black", size: 3 },
+  6: { color: "black", size: 3 },
+  7: { color: "black", size: 3 },
+  8: { color: "black", size: 3 },
+  9: { color: "black", size: 3 },
+  10: { color: "black", size: 3 },
+  11: { color: "black", size: 3 },
+  12: { color: "black", size: 3 },
+  13: { color: "black", size: 3 },
+  14: { color: "black", size: 3 },
+  15: { color: "black", size: 3 },
+  16: { color: "black", size: 3 },
+  17: { color: "black", size: 3 },
+  18: { color: "black", size: 3 },
+  19: { color: "black", size: 3 },
+  20: { color: "black", size: 3 },
 };
 
 // Drawing function
@@ -62,7 +62,7 @@ export const drawHand = (predictions, ctx) => {
           );
           //color of lines
           ctx.strokeStyle = "white";
-          ctx.lineWidth = 7;
+          ctx.lineWidth = 4;
           ctx.stroke();
         }
       }
