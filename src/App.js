@@ -3,6 +3,31 @@
 // include DOM references
 import React, {useRef, useState,useEffect} from 'react';
 
+import { ChakraProvider } from '@chakra-ui/react'
+import { Box, Flex, SimpleGrid, Wrap, WrapItem, Center, Square, Circle   } from '@chakra-ui/react'
+import {
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon, Divider, Image, Container, Stack, Text
+} from '@chakra-ui/react'
+import { Button, ButtonGroup } from '@chakra-ui/react'
+import { PhoneIcon, AddIcon, WarningIcon, ExternalLinkIcon } from '@chakra-ui/icons'
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  PopoverFooter,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverAnchor,
+} from '@chakra-ui/react'
+
+
+
 // import tf dependencies
 import * as tf from "@tensorflow/tfjs";
 import * as handpose from "@tensorflow-models/handpose";
@@ -22,6 +47,7 @@ import { Signimage, Signpass } from "./handimage"
 import victory from "./victory.png";
 import thumbs_up from "./thumbs_up.png";
 import rock_on from "./rock_on.png";
+import Zhand from "./handimage/Zhand.svg";
 
 
 function App() {
@@ -142,27 +168,94 @@ function App() {
   useEffect(()=>{runHandpose()},[]);
 
   return (
+    <ChakraProvider>
     <div className="App">
-      <header className="App-header">
+    
+      <body>
+   
+      <center>
+      <SimpleGrid row={1} spacingX='0px' spacingY='0px' width="95%"  m={3} bg="slate.50" border='1px' borderColor='gray.200' borderRadius='20px'>      
+      <SimpleGrid columns={4} spacingX='40px' spacingY='20px' width="95%" m={3}>
+        <Button>
+            <Text
+                bgGradient='linear(to-l, #7928CA, #FF0080)'
+                bgClip='text'  
+                fontWeight='extrabold'>
+                ASL Translator
+             </Text>     
+      </Button>
+        <Popover>
+          <PopoverTrigger>
+            <Button>About this Project</Button>
+          </PopoverTrigger>
+          <PopoverContent>
+            <PopoverHeader fontWeight='semibold'>About this</PopoverHeader>
+            <PopoverArrow />
+            <PopoverCloseButton />
+            <PopoverBody>
+              -- how to use the app <br/>
+              -- why I made this app <br/>
+              -- limiations of the app <br/>
+              -- sources <br/>
+           
+              
+            </PopoverBody>
+          </PopoverContent>
+        </Popover>
+        <Button colorScheme='blue'>Github  <ExternalLinkIcon/></Button>
+        <Button variant='ghost'>  Built by Nadeem S </Button>
+      </SimpleGrid>
+      
+      
+      </SimpleGrid>
+        
+      <SimpleGrid className="handrows" columns={7} spacingX='40px' spacingY='15px' width="95%" m={3} border='1px' borderColor='gray.200' borderRadius='20px' paddingTop='2' paddingBottom='2'>
+        <Box  height='80px'><Box ><img src={Signpass[0].src} alt="SVG as an image"></img></Box></Box>
+        <Box  height='80px'><Box ><img src={Signpass[1].src} alt="SVG as an image"></img></Box></Box>
+        <Box  height='80px'><Box ><img src={Signpass[2].src} alt="SVG as an image"></img></Box></Box>
+        <Box  height='80px'><Box ><img src={Signpass[3].src} alt="SVG as an image"></img></Box></Box>
+        <Box  height='80px'><Box ><img src={Signpass[4].src} alt="SVG as an image"></img></Box></Box>
+        <Box  height='80px'><Box ><img src={Signpass[5].src} alt="SVG as an image"></img></Box></Box>
+        <Box  height='80px'><Box ><img src={Signpass[6].src} alt="SVG as an image"></img></Box></Box>
+        <Box  height='80px'><Box ><img src={Signpass[7].src} alt="SVG as an image"></img></Box></Box>
+        <Box  height='80px'><Box ><img src={Signpass[8].src} alt="SVG as an image"></img></Box></Box>
+        <Box  height='80px'><Box ><img src={Signpass[9].src} alt="SVG as an image"></img></Box></Box>
+        <Box  height='80px'><Box ><img src={Signpass[10].src} alt="SVG as an image"></img></Box></Box>
+        <Box  height='80px'><Box ><img src={Signpass[11].src} alt="SVG as an image"></img></Box></Box>
+        <Box  height='80px'><Box ><img src={Signpass[12].src} alt="SVG as an image"></img></Box></Box>
+        <Box  height='80px'><Box ><img src={Signpass[13].src} alt="SVG as an image"></img></Box></Box>
+      </SimpleGrid>
+
+       <SimpleGrid columns={1}  spacingX='40px' spacingY='0px' width="95%" m={3}>
+      
+      <Box height = '500px' m={1} >
         {/* webcam */}
         <Webcam ref={webcamRef} /* mirror camera */ mirrored="true" style={{
-          position: "absolute",
-          marginLeft: "auto",
-          marginRight: "auto",
-          left: 0,
-          right: 0,
-          textAlign: "center",
-          zindex: 10,
-          width: 700,
-          height: 500
-          
+        position: "absolute",
+        marginLeft: "auto",
+        marginRight: "auto",
+        marginTop: 0,
+        marginBottom:0, 
+        left: 0,
+        right: 0,
+        forceScreenshotSourceSize: "true",
+        audio: "false",
+        textAlign: "center",
+        zindex: 10,
+        width: 700,
+        height: 500  
         }} />
-
+      
+      
         {/* canvas */}
-        <canvas ref={canvasRef} style={{
+        
+        <canvas ref={canvasRef} 
+          style={{
           position: "absolute",
           marginLeft: "auto",
-          marginRight: "auto",
+         marginRight: "auto",
+          marginTop: 0,
+          marginBottom:0, 
           left: 0,
           right: 0,
           textAlign: "center",
@@ -172,33 +265,63 @@ function App() {
           /* flip canvas */
           transform: 'scale(-1, 1)',
           filter: 'FlipH'
-        }} />
           
+        }} />
+      </Box>
+      
+
+      <Box  m={1} > <Text fontSize="xl" fontWeight="bold">Detected Sign</Text>
           {/* emoji */}
           {sign !== null ? (
-            <img
+            <Image m={1}
 
               alt="signImage"
-                  src={
-                    Signimage[sign] //?.src
-                      // ? Signimage[sign].src
-                      //: "/loveyou_emoji.svg"
-                  }
+                  src={ Signimage[sign] }
+                  
               style={{
-                position: "absolute",
-                marginLeft: "auto",
-                marginRight: "auto",
-                left: 400,
-                bottom: 400,
+                position: "sticky",
+                marginLeft: 0,
+                marginRight: 0,
+                marginTop: 10,
+                left: 0,
+                bottom: 0,
                 right: 0,
+                zindex: 5,
                 textAlign: "center",
-                height: 100,
+                border: '3px solid rgb(229 231 235)',
+                borderRadius: '10px',
+                paddingTop: '10px',
+                paddingBottom: '10px',
+                paddingRight: '10px',
+                paddingLeft: '10px'
+                
               }}
             />
           ) : ("")}
+        </Box>
 
-      </header>
+        </SimpleGrid>   
+
+        <SimpleGrid columns={6} spacingX='40px' spacingY='15px' width="95%" m={3} border='1px' borderColor='gray.200' borderRadius='20px' paddingTop='2' paddingBottom='2'>
+        <Box  height='80px'><Box ><img src={Signpass[14].src} alt="SVG as an image"></img></Box></Box>
+        <Box  height='80px'><Box ><img src={Signpass[15].src} alt="SVG as an image"></img></Box></Box>
+        <Box  height='80px'><Box ><img src={Signpass[16].src} alt="SVG as an image"></img></Box></Box>
+        <Box  height='80px'><Box ><img src={Signpass[17].src} alt="SVG as an image"></img></Box></Box>
+        <Box  height='80px'><Box ><img src={Signpass[18].src} alt="SVG as an image"></img></Box></Box>
+        <Box  height='80px'><Box ><img src={Signpass[19].src} alt="SVG as an image"></img></Box></Box>
+        <Box  height='80px'><Box ><img src={Signpass[20].src} alt="SVG as an image"></img></Box></Box>
+        <Box  height='80px'><Box ><img src={Signpass[21].src} alt="SVG as an image"></img></Box></Box>
+        <Box  height='80px'><Box ><img src={Signpass[22].src} alt="SVG as an image"></img></Box></Box>
+        <Box  height='80px'><Box ><img src={Signpass[23].src} alt="SVG as an image"></img></Box></Box>
+        <Box  height='80px'><Box ><img src={Signpass[24].src} alt="SVG as an image"></img></Box></Box>
+        <Box  height='80px'><Box ><img src={Signpass[25].src} alt="SVG as an image"></img></Box></Box>
+        
+      </SimpleGrid>
+      </center>
+      </body>
     </div>
+
+    </ChakraProvider>
   );
 }
 
