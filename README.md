@@ -6,7 +6,7 @@ This project uses machine learning based computer vision models with JavaScript 
 
 ## Demo
 
-Visit [https://https://handsign.pages.dev/](https://handsign.pages.dev/)
+Visit [https://handsign.pages.dev/](https://handsign.pages.dev/)
 
 ## Detection
 
